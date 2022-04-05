@@ -2,5 +2,18 @@
   "name": "sodakit-sdk",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "author": "Jen Villaganas",
+  "license": "MIT",
+  "private": false,
+  "auto": {
+    "plugins": [
+      "npm",
+      "all-contributors",
+      "first-time-contributor",
+      "released"
+    ]
+  },
+  "dependencies": {
+    "auto": "^10.36.5"
+  }
 }
