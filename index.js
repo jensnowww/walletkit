@@ -47,7 +47,7 @@ class Sodakit {
   insertLedgerAlertDiv() {
 
     // Inject CSS
-    document.getElementsByTagName("head")[0].innerHTML += "  <link rel='stylesheet' href='./index.css'>";
+    document.getElementsByTagName("head")[0].innerHTML += "  <link rel='stylesheet' href='https://unpkg.com/sodakit-sdk@latest/index.css'>";
 
     // Inject
     this.el.insertAdjacentHTML('afterend',
