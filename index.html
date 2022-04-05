@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"> </script>
+  <script src="https://unpkg.com/@solana/spl-token@0.1.8/lib/index.iife.js"> </script>
+  <script src="./index.js"></script>
+  <script>
+    new Sodakit({
+      el: "#sign-in-button",
+      app_id: "8a8b427fb7a874bfcd8a57a7ad303e7cdce2df1d9168f4eda2a59beeed9e",
+      auth_url: "http://google.com"
+    })
+  </script>
+</head>
+<body>
+  <button id="sign-in-button">
+    Test Sign In
+  </button>
+</body>
+</html>
