@@ -1,4 +1,4 @@
-class Sodakit {
+class WalletKit {
   constructor({ el, appId, appBaseUrl, authRedirectUrl }) {
     this.elSelector = el
     this.appId = appId
