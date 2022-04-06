@@ -1,188 +1,173 @@
 class Sodakit {
-  constructor({ el, app_id, auth_url = null, ledger_suppport = true, injectCss = true}) {
-    this.el_selector = el
-    this.app_id = app_id
-    this.auth_url = auth_url
-    this.ledger_suppport = ledger_suppport
-    this.isLedger = false
-    this.sodakit_url = "https://kit.sodalabs.com/api/v1"
-    this.rpc_endpoint = "https://spring-autumn-log.solana-mainnet.quiknode.pro"
-    this.injectCss = injectCss
+  constructor({ el, appId, appBaseUrl, authRedirectUrl }) {
+    this.elSelector = el
+    this.appId = appId
+    this.appBaseUrl = appBaseUrl
+    this.authRedirectUrl = authRedirectUrl
     this.init()
   }
 
   init() {
     document.addEventListener("DOMContentLoaded", (event) => {
-      this.el = document.querySelector(this.el_selector)
-      this.getSignatureMessage()
-      this.insertLedgerAlertDiv()
+      this.el = document.querySelector(this.elSelector)
       this.addListeners()
     });
   }
 
+
   addListeners() {
-    const container = document.querySelector('.sodakit-signin-container')
-    const confirmButton = container.querySelector('#sodakit-signin-confirm')
-    const ledgerSwitch = container.querySelector('#sodakit-is-ledger-input')
-
-    this.el.addEventListener("click", () => {
-      if (this.ledger_suppport) {
-        container.style.display = "flex"
-      } else {
-        this.phantomConnect()
-      }
+    this.el.addEventListener('click', () => {
+      let url = new URL(this.appBaseUrl)
+      url.pathname = "connect"
+      url.searchParams.set('redirect_url', this.authRedirectUrl)
+      url.searchParams.set('popout', true)
+      this.sodakitWindow = window.open(url, 'sodakitWindow', 'height=500,width=500')
     })
-
-    ledgerSwitch.addEventListener("change", (e) => {
-      this.isLedger = e.currentTarget.checked
-    })
-
-    confirmButton.addEventListener('click', () => {
-      container.style.display = "none"
-      this.phantomConnect()
-    })
-
   }
 
-  insertLedgerAlertDiv() {
+  // insertLedgerAlertDiv() {
 
-    // Inject CSS
-    document.getElementsByTagName("head")[0].innerHTML += "  <link rel='stylesheet' href='https://unpkg.com/sodakit-sdk@latest/index.css'>";
+  //   // Inject CSS
+  //   document.getElementsByTagName("head")[0].innerHTML += "  <link rel='stylesheet' href='https://unpkg.com/sodakit-sdk@latest/index.css'>";
 
-    // Inject
-    this.el.insertAdjacentHTML('afterend',
-      `
-      <div class='sodakit-signin-container' style="display: none">
-        <div class="sodakit-signin-modal">
-          <div class="sodakit-signin-form-container">
-            <label class="sodakit-switch">
-              <input type="checkbox" id="sodakit-is-ledger-input">
-              <span class="sodakit-slider round"></span>
-            </label>
-            <span class="sodakit-is-ledger-label">
-              Are you using ledger?
-            </span>
-          </div>
-          <button id="sodakit-signin-confirm">
-            Confirm
-          </button>
+  //   // Inject
+  //   this.el.insertAdjacentHTML('afterend',
+  //     `
+  //     <div class='sodakit-signin-container' style="display: none">
+  //       <div class="sodakit-signin-modal">
+  //         <div class="sodakit-signin-form-container">
+  //           <label class="sodakit-switch">
+  //             <input type="checkbox" id="sodakit-is-ledger-input">
+  //             <span class="sodakit-slider round"></span>
+  //           </label>
+  //           <span class="sodakit-is-ledger-label">
+  //             Are you using ledger?
+  //           </span>
+  //         </div>
+  //         <button id="sodakit-signin-confirm">
+  //           Confirm
+  //         </button>
 
-        </div>
-      </div>
-      `
-    )
-  }
+  //       </div>
+  //     </div>
+  //     `
+  //   )
+  // }
 
-  async getSignatureMessage() {
-    const url = `${this.sodakit_url}/applications/${this.app_id}`
+  // async getSignatureMessage() {
+  //   const url = `${this.sodakit_url}/applications/${this.app_id}`
 
-    try {
-      const response = await fetch(url)
-      const json = await response.json()
-      if ( json.signature_message ) {
-        this.signatureMessage = json.signature_message
-      }
-    } catch(er) {
-      console.warn("Something went wrong when fetching application signature message with app_id: ", this.app_id)
-    }
-  }
+  //   try {
+  //     const response = await fetch(url)
+  //     const json = await response.json()
+  //     if ( json.signature_message ) {
+  //       this.signatureMessage = json.signature_message
+  //     }
+  //   } catch(er) {
+  //     console.warn("Something went wrong when fetching application signature message with app_id: ", this.app_id)
+  //   }
+  // }
 
-  async phantomConnect() {
-    if (!window.solana) return // ADD error handling phantom isn't installed
-    await window.solana.connect()
-    if (this.signatureMessage && (mobileCheck() || window.solana.isConnected)) {
-      this.el.classList.add('connected')
-      this.el.classList.add('isLoading')
-      this.publicKey = window.solana.publicKey.toString()
+  // async phantomConnect() {
+  //   if (!window.solana) return // ADD error handling phantom isn't installed
+  //   await window.solana.connect()
+  //   if (this.signatureMessage && (mobileCheck() || window.solana.isConnected)) {
+  //     this.el.classList.add('connected')
+  //     this.el.classList.add('isLoading')
+  //     this.publicKey = window.solana.publicKey.toString()
 
-      try {
-        if ( this.isLedger ) {
-          await this.sendSolTransaction()
-        } else {
-          await this.getWalletSignature()
-        }
-      } catch (er) {
-        console.warn(er)
-        this.el.classList.remove('isLoading')
-      }
+  //     try {
+  //       if ( this.isLedger ) {
+  //         await this.sendSolTransaction()
+  //       } else {
+  //         await this.getWalletSignature()
+  //       }
+  //     } catch (er) {
+  //       console.warn(er)
+  //       this.el.classList.remove('isLoading')
+  //     }
 
-      if ( this.signatureMessage ) {
-        await this.authenticateUser()
-        if (this.auth_url) {
-          this.redirectToSignIn()
-        }
-        this.el.classList.add('authenticated')
-      }
-      this.el.classList.remove('isLoading')
+  //     if ( this.signatureMessage ) {
+  //       await this.authenticateUser()
+  //       if (this.auth_url) {
+  //         this.redirectToSignIn()
+  //       }
+  //       this.el.classList.add('authenticated')
+  //     }
+  //     this.el.classList.remove('isLoading')
 
-    } else {
-      //
-      return
-    }
-  }
+  //   } else {
+  //     //
+  //     return
+  //   }
+  // }
 
-  redirectToSignIn() {
-    let url = new URL(this.auth_url)
-    const { authentication_token, identifier } = this.userAuth
-    const walletAddress = this.userAuth.wallet_addresses[0]
-    console.log(this.userAuth)
-    url.searchParams.set('walletkit_authentication_token', authentication_token)
-    url.searchParams.set('walletkit_user_id', identifier)
-    url.searchParams.set('wallet_address', walletAddress)
-    window.location.href = url.toString()
-  }
+  // redirectToSignIn() {
+  //   let url = new URL(this.auth_url)
+  //   const { authentication_token, identifier } = this.userAuth
+  //   const walletAddress = this.userAuth.wallet_addresses[0]
+  //   console.log(this.userAuth)
+  //   url.searchParams.set('walletkit_authentication_token', authentication_token)
+  //   url.searchParams.set('walletkit_user_id', identifier)
+  //   url.searchParams.set('wallet_address', walletAddress)
+  //   window.location.href = url.toString()
+  // }
 
-  async authenticateUser() {
-    const authUrl = `${this.sodakit_url}/users/authenticate`
-    const data = {
-      "public_key": this.publicKey,
-      "signature": this.signatureString,
-      "is_transaction": this.isLedger,
-      "app_id": this.app_id,
-    }
-    const authResponse = await fetch(authUrl, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
+  // async authenticateUser() {
+  //   const authUrl = `${this.sodakit_url}/users/authenticate`
+  //   const data = {
+  //     "public_key": this.publicKey,
+  //     "signature": this.signatureString,
+  //     "is_transaction": this.isLedger,
+  //     "app_id": this.app_id,
+  //   }
+  //   try {
+  //     const authResponse = await fetch(authUrl, {
+  //       method: "POST",
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify(data)
+  //     })
 
-    const json = await authResponse.json()
-    this.userAuth = json
-  }
+  //     const json = await authResponse.json()
+  //     this.userAuth = json
+  //   } catch (error) {
 
-  async sendSolTransaction() {
-    const { Connection, Transaction, SystemProgram} = solanaWeb3
-    const publicKey = window.solana.publicKey
-    const connection = new Connection(
-      this.rpc_endpoint,
-      {
-        confirmTransactionInitialTimeout:  60 * 10 * 1000
-      }
-    );
+  //   }
+  // }
 
-    const transaction = new Transaction({feePayer: publicKey}).add(
-      SystemProgram.transfer({
-          fromPubkey: publicKey,
-          toPubkey: publicKey,
-          lamports: 1,
-      })
-    );
-    transaction.recentBlockhash = (await connection.getRecentBlockhash()).blockhash
-    const { signature } = await window.solana.signAndSendTransaction(transaction);
-    const confirmTransaction = await connection.confirmTransaction(signature, 'finalized')
+  // async sendSolTransaction() {
+  //   const { Connection, Transaction, SystemProgram} = solanaWeb3
+  //   const publicKey = window.solana.publicKey
+  //   const connection = new Connection(
+  //     this.rpc_endpoint,
+  //     {
+  //       confirmTransactionInitialTimeout:  60 * 10 * 1000
+  //     }
+  //   );
 
-    if (signature) {
-      this.signatureString = signature
-    }
-  }
+  //   const transaction = new Transaction({feePayer: publicKey}).add(
+  //     SystemProgram.transfer({
+  //         fromPubkey: publicKey,
+  //         toPubkey: publicKey,
+  //         lamports: 1,
+  //     })
+  //   );
+  //   transaction.recentBlockhash = (await connection.getRecentBlockhash()).blockhash
+  //   const { signature } = await window.solana.signAndSendTransaction(transaction);
+  //   const confirmTransaction = await connection.confirmTransaction(signature, 'finalized')
 
-  async getWalletSignature() {
-    const encodedMessage = new TextEncoder().encode(this.signatureMessage);
-    const { signature } = await window.solana.signMessage(encodedMessage, "utf8")
-    this.signatureString = signature.join(",")
-  }
+  //   if (signature) {
+  //     this.signatureString = signature
+  //   }
+  // }
+
+  // async getWalletSignature() {
+  //   const encodedMessage = new TextEncoder().encode(this.signatureMessage);
+  //   const { signature } = await window.solana.signMessage(encodedMessage, "utf8")
+  //   this.signatureString = signature.join(",")
+  // }
 }
 
 window.mobileCheck = function() {

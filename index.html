@@ -6,19 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"> </script>
-  <script src="https://unpkg.com/@solana/spl-token@0.1.8/lib/index.iife.js"> </script>
   <script src="./index.js"></script>
   <script>
     new Sodakit({
       el: "#sign-in-button",
-      app_id: "8a8b427fb7a874bfcd8a57a7ad303e7cdce2df1d9168f4eda2a59beeed9e",
-      auth_url: "http://google.com"
+      appId: "8a8b427fb7a874bfcd8a57a7ad303e7cdce2df1d9168f4eda2a59beeed9e",
+      appBaseUrl: "http://localhost:3002",
+      authRedirectUrl: "http://localhost:3000"
     })
   </script>
 </head>
 <body>
-  <button id="sign-in-button">
-    Test Sign In
-  </button>
+  <div style="width: 100%; display: flex; justify-content: flex-end;">
+    <button id="sign-in-button">
+      Test Sign In
+    </button>
+  </div>
 </body>
 </html>
