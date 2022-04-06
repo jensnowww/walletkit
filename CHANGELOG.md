@@ -1,3 +1,16 @@
+# v1.0.8 (Wed Apr 06 2022)
+
+#### ⚠️ Pushed to `master`
+
+- git push origin masterMerge branch 'master' of github.com:jensnowww/sodakit ([@jensnowww](https://github.com/jensnowww))
+- Replace class name with WalletKit ([@jensnowww](https://github.com/jensnowww))
+
+#### Authors: 1
+
+- Jen ([@jensnowww](https://github.com/jensnowww))
+
+---
+
 # v1.0.6 (Wed Apr 06 2022)
 
 #### ⚠️ Pushed to `master`
