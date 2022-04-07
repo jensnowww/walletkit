@@ -9,11 +9,11 @@ class WalletKit {
 
   init() {
     document.addEventListener("DOMContentLoaded", (event) => {
+      window.walletkit = this
       this.el = document.querySelector(this.elSelector)
       this.addListeners()
     });
   }
-
 
   addListeners() {
     this.el.addEventListener('click', () => {
