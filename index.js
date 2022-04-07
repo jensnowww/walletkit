@@ -1,9 +1,10 @@
 class WalletKit {
-  constructor({ el, appId, appBaseUrl, authRedirectUrl }) {
+  constructor({ el, appId, appBaseUrl, authRedirectUrl, afterSignInCallback }) {
     this.elSelector = el
     this.appId = appId
     this.appBaseUrl = appBaseUrl
     this.authRedirectUrl = authRedirectUrl
+    this.afterSignInCallback = afterSignInCallback
     this.init()
   }
 
@@ -13,6 +14,10 @@ class WalletKit {
       this.el = document.querySelector(this.elSelector)
       this.addListeners()
     });
+  }
+
+  triggerAfterSignIn(userParams) {
+    this.afterSignInCallback(userParams)
   }
 
   addListeners() {
