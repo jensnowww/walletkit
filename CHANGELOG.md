@@ -1,3 +1,16 @@
+# v1.0.11 (Thu Apr 07 2022)
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'master' of github.com:jensnowww/sodakit ([@jensnowww](https://github.com/jensnowww))
+- Trigger callback on postmessage ([@jensnowww](https://github.com/jensnowww))
+
+#### Authors: 1
+
+- Jen ([@jensnowww](https://github.com/jensnowww))
+
+---
+
 # v1.0.10 (Thu Apr 07 2022)
 
 #### ⚠️ Pushed to `master`
