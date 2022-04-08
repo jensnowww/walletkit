@@ -25,11 +25,12 @@ class WalletKit {
   }
 
   triggerAfterSignIn(userParams) {
-    this.afterSignInCallback({...userParams})
+    this.afterSignInCallback({...userParams, el: this.currentEl})
   }
 
   addListeners() {
-    this.el.addEventListener('click', () => {
+    this.el.addEventListener('click', (event) => {
+      this.currentEl = event.currentTarget
       this.sodakitWindow = window.open(this.appBaseUrlObject, 'sodakitWindow', 'height=500,width=500')
     })
 
