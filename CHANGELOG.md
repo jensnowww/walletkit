@@ -1,3 +1,16 @@
+# v1.0.12 (Fri Apr 08 2022)
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'master' of github.com:jensnowww/sodakit ([@jensnowww](https://github.com/jensnowww))
+- Add current el access ([@jensnowww](https://github.com/jensnowww))
+
+#### Authors: 1
+
+- Jen ([@jensnowww](https://github.com/jensnowww))
+
+---
+
 # v1.0.11 (Thu Apr 07 2022)
 
 #### ⚠️ Pushed to `master`
