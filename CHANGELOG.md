@@ -1,3 +1,15 @@
+# v1.0.14 (Tue Apr 12 2022)
+
+#### ⚠️ Pushed to `master`
+
+- Remove redirect url param ([@jensnowww](https://github.com/jensnowww))
+
+#### Authors: 1
+
+- Jen ([@jensnowww](https://github.com/jensnowww))
+
+---
+
 # v1.0.13 (Tue Apr 12 2022)
 
 #### ⚠️ Pushed to `master`
