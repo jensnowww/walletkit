@@ -1,3 +1,17 @@
+# v1.0.13 (Tue Apr 12 2022)
+
+#### ⚠️ Pushed to `master`
+
+- git push origin HEADMerge branch 'master' of github.com:jensnowww/sodakit ([@jensnowww](https://github.com/jensnowww))
+- Optial base url ([@jensnowww](https://github.com/jensnowww))
+- Make base url optional ([@jensnowww](https://github.com/jensnowww))
+
+#### Authors: 1
+
+- Jen ([@jensnowww](https://github.com/jensnowww))
+
+---
+
 # v1.0.12 (Fri Apr 08 2022)
 
 #### ⚠️ Pushed to `master`
