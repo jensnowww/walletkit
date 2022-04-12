@@ -1,3 +1,16 @@
+# v1.0.15 (Tue Apr 12 2022)
+
+#### ⚠️ Pushed to `master`
+
+- Merge branch 'master' of github.com:jensnowww/sodakit ([@jensnowww](https://github.com/jensnowww))
+- put back redirect u rl ([@jensnowww](https://github.com/jensnowww))
+
+#### Authors: 1
+
+- Jen ([@jensnowww](https://github.com/jensnowww))
+
+---
+
 # v1.0.14 (Tue Apr 12 2022)
 
 #### ⚠️ Pushed to `master`
