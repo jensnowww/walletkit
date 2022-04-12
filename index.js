@@ -1,8 +1,9 @@
 class WalletKit {
-  constructor({ el, appId, appBaseUrl = null, afterSignInCallback }) {
+  constructor({ el, appId, appBaseUrl = null, authRedirectUrl, afterSignInCallback }) {
     this.elSelector = el
     this.appId = appId
     this.appBaseUrl = appBaseUrl || "https://kit.sodalabs.com"
+    this.authRedirectUrl = authRedirectUrl
     this.afterSignInCallback = afterSignInCallback
     this.init()
   }
@@ -19,6 +20,7 @@ class WalletKit {
   setBaseUrl() {
     this.appBaseUrlObject = new URL(this.appBaseUrl)
     this.appBaseUrlObject.pathname = "connect"
+    this.appBaseUrlObject.searchParams.set('redirect_url', this.authRedirectUrl)
     this.appBaseUrlObject.searchParams.set('application_identifier', this.appId)
     this.appBaseUrlObject.searchParams.set('popout', true)
   }
