@@ -1,5 +1,5 @@
 class WalletKit {
-  constructor({ el, appId, appBaseUrl, authRedirectUrl, afterSignInCallback }) {
+  constructor({ el, appId, appBaseUrl = null, authRedirectUrl, afterSignInCallback }) {
     this.elSelector = el
     this.appId = appId
     this.appBaseUrl = appBaseUrl || "https://kit.sodalabs.com"
